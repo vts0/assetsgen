@@ -11,8 +11,8 @@ Place your files in a folder, e.g., `assets/`:
 ```bash
 assets/
  ├─ index.html
- ├─ style.css
- └─ script.js
+ ├─ css/style.css
+ └─ js/script.js
  ```
 
 ## 2. Generate Go code
@@ -50,8 +50,8 @@ Files are available via HTTP paths that match their relative paths in the `asset
 | Asset        | URL path       |
 |--------------|----------------|
 | index.html   | /index.html    |
-| style.css    | /style.css     |
-| script.js    | /script.js     |
+| css/style.css| /css/style.css |
+| js/script.js | /js/script.js  |
 
 Now all your assets are embedded, served with proper MIME types, ETag caching, gzip compression, and Range support automatically.
 
