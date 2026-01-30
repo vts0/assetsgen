@@ -16,27 +16,33 @@ func main() {
 }
 
 func Run(generate func(source, output string) error) error {
-	output := flag.String("output", "output_gen.go", "Output file")
-	outputShort := flag.String("o", "output_gen.go", "Output file (short)")
-	source := flag.String("source", "", "Source file or directory")
-	sourceShort := flag.String("s", "", "Source file (short)")
-	verbose := flag.Bool("v", false, "Verbose")
-	verboseLong := flag.Bool("verbose", false, "Verbose")
-	help := flag.Bool("help", false, "Show help")
+	var (
+		output  string
+		source  string
+		verbose bool
+		help    bool
+	)
+
+	flag.StringVar(&output, "output", "output_gen.go", "Output file")
+	flag.StringVar(&output, "o", "output_gen.go", "Output file (short)")
+
+	flag.StringVar(&source, "source", "", "Source file or directory")
+	flag.StringVar(&source, "s", "", "Source file (short)")
+
+	flag.BoolVar(&verbose, "v", false, "Verbose")
+	flag.BoolVar(&verbose, "verbose", false, "Verbose")
+
+	flag.BoolVar(&help, "help", false, "Show help")
 
 	flag.Parse()
 
-	if *help {
+	if help {
 		flag.Usage()
 		return nil
 	}
 
-	out := firstNonEmpty(*output, *outputShort)
-	src := firstNonEmpty(*source, *sourceShort)
-	verb := *verbose || *verboseLong
-
 	var files []string
-	if src == "" {
+	if source == "" {
 		cwd, err := os.Getwd()
 		if err != nil {
 			return err
@@ -47,11 +53,11 @@ func Run(generate func(source, output string) error) error {
 			return err
 		}
 	} else {
-		files = []string{src}
+		files = []string{source}
 	}
 
 	if len(files) == 0 {
-		if verb {
+		if verbose {
 			fmt.Println("No files to process")
 		}
 		return nil
@@ -62,23 +68,14 @@ func Run(generate func(source, output string) error) error {
 			continue
 		}
 
-		if verb {
-			fmt.Printf("Processing %s -> %s\n", f, out)
+		if verbose {
+			fmt.Printf("Processing %s -> %s\n", f, output)
 		}
 
-		if err := generate(f, out); err != nil {
+		if err := generate(f, output); err != nil {
 			return fmt.Errorf("processing %s: %w", f, err)
 		}
 	}
 
 	return nil
-}
-
-func firstNonEmpty(vals ...string) string {
-	for _, v := range vals {
-		if v != "" {
-			return v
-		}
-	}
-	return ""
 }
