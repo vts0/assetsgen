@@ -23,8 +23,8 @@ func Run(generate func(source, output string) error) error {
 		help    bool
 	)
 
-	flag.StringVar(&output, "output", "output_gen.go", "Output file")
-	flag.StringVar(&output, "o", "output_gen.go", "Output file (short)")
+	flag.StringVar(&output, "output", "", "Output file")
+	flag.StringVar(&output, "o", "", "Output file (short)")
 
 	flag.StringVar(&source, "source", "", "Source file or directory")
 	flag.StringVar(&source, "s", "", "Source file (short)")
@@ -39,6 +39,10 @@ func Run(generate func(source, output string) error) error {
 	if help {
 		flag.Usage()
 		return nil
+	}
+
+	if output == "" {
+		output = "output_gen.go"
 	}
 
 	var files []string
