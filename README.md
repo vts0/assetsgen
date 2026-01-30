@@ -20,7 +20,7 @@ assets/
 Run the generator:
 
 ```bash
-go run generate.go -s assets -o assets_gen.go
+go run github.com/vts0/assetsgen@latest -s assets -o assets_gen.go
 ```
 
 ## 3. Use in your Go server
