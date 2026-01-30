@@ -43,8 +43,17 @@ func main() {
 }
 ````
 
-Now all your assets are embedded, served with proper MIME types, ETag caching, gzip compression, and Range support automatically.
+## 4. Accessing the assets
 
+Files are available via HTTP paths that match their relative paths in the `assets/` folder:
+
+| Asset        | URL path       |
+|--------------|----------------|
+| index.html   | /index.html    |
+| style.css    | /style.css     |
+| script.js    | /script.js     |
+
+Now all your assets are embedded, served with proper MIME types, ETag caching, gzip compression, and Range support automatically.
 
 Command-Line Flags
 | Flag              | Description                             |
