@@ -44,3 +44,13 @@ func main() {
 ````
 
 Now all your assets are embedded, served with proper MIME types, ETag caching, gzip compression, and Range support automatically.
+
+
+Command-Line Flags
+| Flag              | Description                             |
+| ----------------- | --------------------------------------- |
+| `-s` / `-source`  | Source directory (default: current dir) |
+| `-o` / `-output`  | Output file (default: `output_gen.go`)  |
+| `-v` / `-verbose` | Verbose mode                            |
+| `-help`           | Show help message                       |
+
